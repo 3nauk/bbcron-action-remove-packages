@@ -33,6 +33,8 @@ runs:
           -d '{"query": "query {user(login: \"${{ inputs.organization }}\") { packages(first: 1, names: \"${{ inputs.packageName }}\") { nodes { version(version: \"${{ inputs.packageVersion }}\") { id } } } } }"}' \
           -o /tmp/query_response.json \
           --url https://api.github.com/graphql
+
+        cat /tmp/query_response.json
     - name: Set version id as output
       id: version
       shell: bash
