@@ -25,9 +25,10 @@ outputs:
 runs:
   using: composite
   steps:
-    - name: "Fetch package version id"
+    - name: Fetch package version id
       shell: bash
       run: |
+        echo  "Fetch package version id"
         curl -X POST \
           -s \
           -H "Accept: application/vnd.github.v3+json" \
@@ -40,11 +41,14 @@ runs:
     - name: Set version id as output
       id: version
       shell: bash
-      run: printf "::set-output name=id::%s" $(cat /tmp/query_response.json | jq '.data.user.packages.nodes[0].version.id' | sed -e 's/^\"//' -e 's/\"$//')
+      run: |
+        echo  "Set version id as output"
+        printf "::set-output name=id::%s" $(cat /tmp/query_response.json | jq '.data.user.packages.nodes[0].version.id' | sed -e 's/^\"//' -e 's/\"$//')
     - name: Print package version by id
       shell: bash
       run: |
-        echo  "${{ steps.version.outputs.id }}"
+        echo "Print package version by id"
+        echo  Version: "${{ steps.version.outputs.id }}"
     - name: 'Delete package version by id'
       shell: bash
       run: |
