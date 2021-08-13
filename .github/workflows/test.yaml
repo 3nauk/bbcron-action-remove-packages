@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Remove PackageVersion
-        uses: 3nauk/bbcron-action-remove-packages@v0.0.2
+        uses: ./
         with:
           organization: '3nauk'
           packageName: 'com.bnauk.bbcron.bbcron-api'
