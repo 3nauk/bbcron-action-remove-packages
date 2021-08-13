@@ -13,10 +13,10 @@ jobs:
         uses: ./
         with:
           owner: ${{secrets.bnauk_user}}
-          organization: 'benauca'
+          token: ${{secrets.bnauk_token}}
+          organization: 'bnauk'
           packageName: 'com.bnauk.bbcron.bbcron-api'
           packageVersion: '0.0.3-SNAPSHOT'
-          token: ${{secrets.bnauk_token}}
 
       #- name: Publish to GitHub Packages Apache Maven
       #  env:
