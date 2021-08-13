@@ -1,0 +1,55 @@
+name: 'Remove Snapshot Packages Version'
+description: 'Remove Snapshot Packages Version when we`re going to create a new release'
+inputs:
+  organization:
+    description: 'Organization name for find SNAPSHPT VERSIONs'
+    required: true
+    default: ${{ github.repository_owner }}
+   packageName:
+     description: 'Package name to remove. By example: [com.bnauk.bbcron.bbcron-api]'
+     required: true
+   packageVersion:
+     description: 'Version associated to the new release'
+     required: true
+   token:
+       description: 'Personal access token to use'
+       required: false
+       default: ${{ github.token }}
+ outputs:
+   versionsId:
+     description: 'The Snapshot versions Ids for remove'
+     value: ${{ steps.bbcron-remove-packages.versionIds.outputs}}
+runs:
+  using: composite
+  steps:
+  - name: Fetch package version id
+      shell: bash
+      run: |
+        curl -X POST \
+          -s \
+          -H "Accept: application/vnd.github.v3+json" \
+          -H "Authorization: bearer ${{ inputs.token }}" \
+          -d '{"query": "query {user(login: \"${{ inputs.organization }}\") { packages(first: 1, names: \"${{ inputs.packageName }}\") { nodes { version(version: \"${{ inputs.packageVersion }}\") { id } } } } }"}' \
+          -o /tmp/query_response.json \
+          --url https://api.github.com/graphql
+      - name: Set version id as output
+        id: version
+        shell: bash
+        run: printf "::set-output name=id::%s" $(cat /tmp/query_response.json | jq '.data.user.packages.nodes[0].version.id' | sed -e 's/^\"//' -e 's/\"$//')
+      - name: Print package version by id
+          shell: bash
+          run: |
+            echo  "${{ steps.version.outputs.id }}"
+        #- name: Delete package version by id
+        #shell: bash
+          #run: |
+            #curl -X POST \
+            #-s \
+            #-H "Accept: application/vnd.github.package-deletes-preview+json" \
+            #-H "Authorization: bearer ${{ inputs.token }}" \
+            #-d '{"query": "mutation { deletePackageVersion ( input: { packageVersionId: \"${{ steps.version.outputs.id }}\" } ) { success } }"}' \
+            #-o /tmp/mutation_response.json \
+          #--url https://api.github.com/graphql
+      - name: Delete package version outcome
+        shell: bash
+        run: echo $(cat /tmp/mutation_response.json)
