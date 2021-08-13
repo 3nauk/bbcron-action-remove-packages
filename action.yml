@@ -43,7 +43,7 @@ runs:
       shell: bash
       run: |
         echo  "Set version id as output"
-        printf "::set-output name=id::%s" $(cat /tmp/query_response.json | jq '.data.user.packages.nodes[0].version.id' | sed -e 's/^\"//' -e 's/\"$//')
+        printf "::set-output name=id::%s" $(cat /tmp/query_response.json | jq '.data.user.organization.packages.nodes[0].version.id' | sed -e 's/^\"//' -e 's/\"$//')
     - name: Print package version by id
       shell: bash
       run: |
