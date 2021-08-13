@@ -12,7 +12,8 @@ jobs:
       - name: Remove PackageVersion
         uses: ./
         with:
-          organization: '3nauk'
+          owner: ${{secrets.bnauk_user}}
+          organization: 'benauca'
           packageName: 'com.bnauk.bbcron.bbcron-api'
           packageVersion: '0.0.3-SNAPSHOT'
           token: ${{secrets.bnauk_token}}

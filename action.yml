@@ -30,7 +30,7 @@ runs:
           -s \
           -H "Accept: application/vnd.github.v3+json" \
           -H "Authorization: bearer ${{ inputs.token }}" \
-          -d '{"query": "query {user(login: \"${{ inputs.organization }}\") { packages(first: 1, names: \"${{ inputs.packageName }}\") { nodes { version(version: \"${{ inputs.packageVersion }}\") { id } } } } }"}' \
+          -d '{"query": "query {user(login: \"benauca\") { organization(login: \"3nauk\") { packages(first: 10, names: \"com.bnauk.bbcron.bbcron-api\") { nodes { version(version: \"0.0.3-SNAPSHOT\"){ id }} } }}}"}' \
           -o /tmp/query_response.json \
           --url https://api.github.com/graphql
 
