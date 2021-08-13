@@ -34,13 +34,14 @@ runs:
           -o /tmp/query_response.json \
           --url https://api.github.com/graphql
     - name: Set version id as output
-        id: version
-        shell: bash
-        run: printf "::set-output name=id::%s" $(cat /tmp/query_response.json | jq '.data.user.packages.nodes[0].version.id' | sed -e 's/^\"//' -e 's/\"$//')
+      id: version
+      shell: bash
+      run: printf "::set-output name=id::%s" $(cat /tmp/query_response.json | jq '.data.user.packages.nodes[0].version.id' | sed -e 's/^\"//' -e 's/\"$//')
     - name: Print package version by id
-          shell: bash
-          run: |
-            echo  "${{ steps.version.outputs.id }}"
+      shell: bash
+      run: |
+        echo  "${{ steps.version.outputs.id }}"
+
         #- name: Delete package version by id
         #shell: bash
           #run: |
@@ -52,5 +53,5 @@ runs:
             #-o /tmp/mutation_response.json \
           #--url https://api.github.com/graphql
     - name: Delete package version outcome
-        shell: bash
-        run: echo $(cat /tmp/mutation_response.json)
+      shell: bash
+      run: echo $(cat /tmp/mutation_response.json)
