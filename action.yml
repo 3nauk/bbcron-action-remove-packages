@@ -14,6 +14,10 @@ inputs:
   packageVersion:
     description: 'Version associated to the new release'
     required: true
+  suffix:
+    description: Pattern to remove
+    required: false
+    default: -SNAPSHOT
   token:
     description: 'Personal access token to use'
     required: false
