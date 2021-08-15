@@ -17,7 +17,7 @@ inputs:
   suffix:
     description: Pattern to remove
     required: false
-    default: -SNAPSHOT
+    default: SNAPSHOT
   token:
     description: 'Personal access token to use'
     required: false
