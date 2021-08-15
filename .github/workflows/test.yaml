@@ -15,8 +15,8 @@ jobs:
           owner: ${{secrets.bnauk_user}}
           token: ${{secrets.bnauk_token}}
           organization: 'bnauk'
-          packageName: 'com.bnauk.bbcron.bbcron-api'
-          packageVersion: '0.0.3-SNAPSHOT'
+          packageName: 'com.bnauk.bbcron.bbcron-core'
+          packageVersion: '0.0.2'
 
       #- name: Publish to GitHub Packages Apache Maven
       #  env:
