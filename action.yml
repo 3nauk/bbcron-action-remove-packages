@@ -32,7 +32,8 @@ runs:
     - name: Fetch package version id
       shell: bash
       run: |
-        echo "Fetch package version id"
+        echo "Fetch package version id "
+        echo "{user(login: \"${{ inputs.owner }}\") { organization(login: \"${{ inputs.organization }}\") { packages(first: 10, names: \"${{ inputs.packageName }}\") { nodes { version(version: \"${{ inputs.packageVersion }}-${{ inputs.suffix }}\"){ id }} } }}}"
         curl -X POST \
           -s \
           -H "Accept: application/vnd.github.v3+json" \
