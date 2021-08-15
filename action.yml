@@ -37,7 +37,7 @@ runs:
           -s \
           -H "Accept: application/vnd.github.v3+json" \
           -H "Authorization: bearer ${{ inputs.token }}" \
-          -d '{"query": "{user(login: \"${{ inputs.owner }}\") { organization(login: \"${{ inputs.organization }}\") { packages(first: 10, names: \"${{ inputs.packageName }}\") { nodes { version(version: \"${{ inputs.packageVersion }}-${{ inputs.suffix }}\"){ id }} } }}}"}' \
+          -d '{"query": "{user(login: \"benauca\") { organization(login: \"3nauk\") { packages(first: 10, names: \"com.bnauk.bbcron.bbcron-core\") { nodes { version(version: \"0.0.2-SNAPSHOT"){ id }} } }}}"}' \
           -o /tmp/query_response.json \
           --url https://api.github.com/graphql
     - name: Set version id as output
