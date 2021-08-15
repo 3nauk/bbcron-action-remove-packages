@@ -12,7 +12,7 @@ jobs:
       - name: Remove PackageVersion
         uses: ./
         with:
-          owner: ${{secrets.bnauk_user}}
+          owner: 'benauca'
           token: ${{secrets.bnauk_token}}
           organization: '3nauk'
           packageName: 'com.bnauk.bbcron.bbcron-core'
